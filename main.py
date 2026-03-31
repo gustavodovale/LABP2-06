@@ -1,5 +1,6 @@
 # Blibiotecas utilizadas
 import re
+from transformers import AutoTokenizer
 
 
 # Tarefa 01 - O Motor de Frequências 
@@ -15,33 +16,17 @@ def get_stats(lista_vocabularios):
     pares = {}
     
     for palavra, frequencia in lista_vocabularios.items():
-        # print("listar as palavras e suas frquencias")
-        # print(palavra,frequencia)
+
         simbolos = palavra.split()
-        # print('lista os simbolos')
-        # print(simbolos)
         
         for i in range(len(simbolos) - 1):
             par_atual = (simbolos[i], simbolos[i+1])
-            # print("Mostrar o Par atual")
-            # par_atual
+   
             if par_atual not in pares:
                 pares[par_atual] = 0
             pares[par_atual] += frequencia
             
     return pares
-
-# if __name__ == "__main__":
-#     estatisticas = get_stats(vocabularios)
-    
-#     print("Frequência de todos os pares:\n")
-#     for par, contagem in estatisticas.items():
-#         print(f"{par}: {contagem}")
-        
-#     print("\nVerificarda funcionalidade da tarefa 1 especificando apenas a frequencia de um par ('e', 's')")
-#     par_teste = ('e', 's')
-#     print(f"O par {par_teste} aparece {estatisticas[par_teste]} vezes.")
-
 
 # Tarefa 2: O Loop de Fusão
 
@@ -78,7 +63,7 @@ if __name__ == "__main__":
 
     print("\n Teste de avaliação da Tarefa 2: O Loop de Fusão\n")
     
-    # Define o número de iterações do treinamento
+    # O número de iterações do treinamento
     K = 5
     
     for i in range(K):
@@ -94,3 +79,21 @@ if __name__ == "__main__":
         # 4. Imprime os resultados da rodada
         print(f"Iteração {i+1}: Par fundido: {melhor_par}")
         print(f"Vocabulário atualizado: {vocabularios}\n")
+
+
+# Tarefa 03: Integração Industrial e WordPiece
+
+print("\nTarefa 3: O WordPiece na Prática (BERT)")
+    
+# Baixa e carrega as regras de tokenização do BERT Multilíngue
+tokenizer = AutoTokenizer.from_pretrained("bert-base-multilingual-cased")
+    
+# A frase teste obrigatoria
+frase_teste = "Os hiper-parâmetros do transformer são inconstitucionalmente difíceis de ajustar."
+    
+# O método .tokenize() fatiar a frase aplicando as regras do WordPiece
+tokens = tokenizer.tokenize(frase_teste)
+    
+print(f"\nFrase original: '{frase_teste}'")
+print(f"Tokens gerados:\n{tokens}")
+
